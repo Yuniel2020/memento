@@ -1,12 +1,16 @@
 import os
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, session, flash
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired, Email, Length
 from werkzeug.exceptions import HTTPException
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, migrate
+from flask_mail import Mail, Message
+from threading import Thread
 
+
+""" CONFIGURATIONS """
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__) # Creating the Flask application instance 
@@ -15,9 +19,18 @@ app.config['SQLALCHEMY_DATABASE_URI'] = \
     'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # If set to True SQLAlchemy will log all the statements issued to stderr which can be useful for debugging.
-app.config['SQLALCHEMY_ECHO'] = True 
+app.config['SQLALCHEMY_ECHO'] = True
+app.config['MAIL_SERVER']= 'smtp.googlemail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+app.config['MEMENTO_MAIL_SUBJECT_PREFIX'] = '[Memento]'
+app.config['MEMENTO_MAIL_SENDER'] = 'memento.gmbh@gmail.com'
+app.config['MEMENTO_ADMIN'] = os.environ.get('MAIL_USERNAME')
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+mail = Mail(app)
 
 """ Defining form class"""
 class LoginForm(FlaskForm):
@@ -74,13 +87,37 @@ def login():
     mail = None
     form = LoginForm()
     if form.validate_on_submit():
-        user = User(username=form.name.data, email=form.email.data)
-        db.session.add(user)
-        db.session.commit()
-        user_list = User.query.all()
-        return render_template('dashboard.html', user_list=user_list)
+        user = User.query.filter_by(username=form.name.data).first()
+        if user is None:
+            user = User(username=form.name.data, email=form.email.data)
+            db.session.add(user)
+            db.session.commit()
+            session['know'] = False
+            if app.config['MEMENTO_ADMIN']:
+                send_email(app.config['MEMENTO_ADMIN'], 'New User',
+                 'mail/new_user', user=user)       
+        else:
+            session['known'] = True
+        session['name'] = form.name.data
+        form.name.data = ''            
+        return render_template('dashboard.html', name=session['name'])
     return render_template('login.html', form=form, name=user, email=mail) 
-    
+
+
+""" Implementing Asynchronous Email Support"""
+def send_async_email(app, msg):
+    with app.app_context():
+        mail.send(msg)
+
+""" Defining Email Support Function """
+def send_email(to, subject, template, **kwargs):
+    msg = Message(app.config['MEMENTO_MAIL_SUBJECT_PREFIX'] + subject, 
+                            sender=app.config['MEMENTO_MAIL_SENDER'], recipients=[to])
+    msg.body = render_template(template + '.txt', **kwargs)
+    msg.html = render_template(template + '.html', **kwargs)
+    thr = Thread(target=send_async_email, args=[app, msg])
+    thr.start()
+    return thr    
 
 @app.errorhandler(404)
 def page_not_found(e):
