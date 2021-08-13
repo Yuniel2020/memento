@@ -1,5 +1,4 @@
 # Memento 
-# =======
 
 #### Video Demo:  <URL HERE>
 #### My project will be a journaling app. It will be distinguished by its simplicity as long as it seeks that the user concentrates only on writing.

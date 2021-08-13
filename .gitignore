@@ -75,6 +75,9 @@ db.sqlite3
 instance/
 .webassets-cache
 
+# SQLite databases
+*.sqlite
+
 # Scrapy stuff:
 .scrapy
 
