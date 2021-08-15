@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from . import db
+from werkzeug.security import generate_password_hash, check_password_hash
 
 """ Defining model for database """
 # Defining the models for Users table
@@ -8,6 +9,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, index=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='user', lazy='dynamic')
 
     # This method give the table a readable string representation that

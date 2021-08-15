@@ -21,12 +21,6 @@
         <title>
         {% block title %}{% endblock %}
         </title>
-        
-    </head>
-    {% endblock %}
-    {% block body %}
-    <body>
-        Let's start with the base
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 {% for message in get_flashed_messages() %}
@@ -36,7 +30,12 @@
                     </div>
                 {% endfor %}
             {% endif %}   
-        {% endwith %}
+        {% endwith %}        
+    </head>
+    {% endblock %}
+    {% block body %}
+    <body>
+        
     </body>
     {% endblock %}
 </html>

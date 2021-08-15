@@ -4,7 +4,7 @@
 from flask import Flask
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
-from config import config
+from config import config 
 
 # As there is not application instance to initialize the extensions with,
 # and creates instance for each extensions, they are created uninitialized
@@ -25,5 +25,8 @@ def create_app(config_name):
     """ Registering the blueprint inside the app factory """
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
 
     return app

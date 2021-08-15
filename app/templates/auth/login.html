@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
+
 <div class="login-form" style="background-color: blanchedalmond;" >
     <form action="/login" method="post">
         <div>
@@ -10,7 +11,7 @@
              {#  <input name="username" type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" required="required" autocomplete="off">  #} 
             </div>
             <div class="col-6" style="padding-top: 30px;">
-                <label for="formGroupExampleInput2" class="form-label">{{ form.email() }}</label>
+                <label for="formGroupExampleInput2" class="form-label">{{ form.password() }}</label>
                 {#<input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password" required="required" autocomplete="off">#}
             </div>
         </div>

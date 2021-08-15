@@ -1,7 +1,8 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-""" This base class defines settings that are commom to all configurations"""
+""" This base class defines settings that are commom to all configurations
+    subclasses as they are class variables"""
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard to guess string'
     MAIL_SERVER = os.environ.get('MAIL_SERVER', 'smtp.googlemail.com')
@@ -12,7 +13,7 @@ class Config:
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
     FLASKY_MAIL_SUBJECT_PREFIX = '[Flasky]'
     FLASKY_MAIL_SENDER = os.environ.get('MAIL_USERNAME')
-    FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
+    MEMENTO_ADMIN = os.environ.get('MAIL_USERNAME')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     """ Additional way to allow the app to customize its configuration"""
