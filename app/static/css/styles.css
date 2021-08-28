@@ -1,0 +1,247 @@
+/* General */
+
+button {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  appearance: none;
+}
+
+svg {
+  width: 70%;
+  height: auto;
+}
+
+.app-layout-board, .menu-bar, .search-field {
+  border: solid #dcdcde 0.2px;
+}
+
+/* Index */
+#wrap {
+  background-color: #000000;
+  height: auto;
+}
+
+/* Login */
+
+/*========== Dashboard ========
+=============================== */
+
+.logo-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  flex-direction: column;
+}
+.logo {
+  width: 200px;
+  height: 200px;
+  opacity: 0.2;
+}
+
+/* Left Side */
+
+/*.app {
+  display:flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+} */
+
+/* Sidenav menu */
+#app-menu-sidenav {
+  display: none;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: white;
+  overflow-x: hidden;
+  padding-top: 60px;
+}
+/* ======================================== */
+.memento-app {
+  display: flex;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.app-layout {
+  display: flex;
+  flex: 1 0 auto;
+  width: 100%;
+}
+
+.app-layout-board {
+  width: 380px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-bar {
+  height: 44px;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+}
+
+.icon-button {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  color: #646970;
+  background-color: 0;
+}
+
+.editor-toolbar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 15px;
+}
+
+.editor-toolbar_column-left {
+  align-items: center;
+}
+
+.editor-toolbar_column-left > .icon-button {
+  margin: 7px;
+}
+
+.editor-toolbar_column-right {
+  align-items: center;
+  padding: 0 10px;
+  margin-top: 5px;
+}
+
+.general-action-menu {
+  display: none;
+  width: 200px;
+  height: 30vh;
+  position: absolute;
+  right: 16px;
+  display: flex;
+  background-color: blanchedalmond;
+  top: 40px;
+
+}
+
+.search-field > input:focus {
+  outline: none;
+} 
+
+.search-box {
+  border: none;
+}
+.journal-list-is-empty {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  overflow: hidden;
+  background: inherit;
+}
+
+.journal-list-is-not-empty {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  overflow: hidden;
+  background: inherit;
+  justify-content: center;
+
+}
+
+
+.no-journal-icon > svg {
+  width: 40%;
+  margin-bottom: 10px;
+}
+
+.app-layout-editor {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+
+.editor-toolbar-wrapper {
+  display: flex;
+  border-bottom:0.2px solid #dcdcde;
+  flex: none;
+  height: 46px;
+}
+
+/* ========================================
+===========Jurnal Editor Styling==========
+=========================================== */
+
+#journal-editor-area {
+  width: 990px;
+  position: relative;
+  text-align: center;
+  color: #007bff;
+  font-size: 20px;
+  padding: 20px;
+} 
+
+#journal-editor-area *[contentEditable="true"]:hover {
+  outline: 1px solid #1976D2;
+} 
+
+ #journal-editor-area h1 {
+  color: #1976D2;
+  font-size: 2em;
+} 
+
+ #journal-editor-area h2 {
+  color: #1976D2;
+  font-size: 2em;
+} 
+
+ #journal-editor-area h3 {
+  font-size: 1.5em;
+  color: #403f42;
+  color: inherit;
+} 
+
+#journal-editor-area ul,
+#journal-editor-area ol {
+  padding-left: 20px;
+} 
+
+#journal-editor-area ul {
+  list-style: disc;
+}
+
+#journal-editor-area ol {
+  list-style: decimal;
+}
+
+#journal-editor-area a {
+  text-decoration: underline;
+}
+#journal-editor-header{
+  margin-top: 15px;
+}
+
+#journal-editor-body {
+  text-align: left;
+  color: black;
+  font-size: 12px;
+  padding: 10px;
+}
+
+

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block head %}
+   {{ super() }}
+
+   <script>
+       var dfreeHeaderConfig = {
+         selector: '#journal-editor-header',
+         menubar: false,
+         inline: true,
+         toolbar: false,
+         plugins: [ 'quickbars' ],
+         quickbars_insert_toolbar: 'undo redo',
+         quickbars_selection_toolbar: 'italic underline',
+      };
+
+      var dfreeBodyConfig = {
+         selector: '#journal-editor-body',
+         menubar: false,
+         inline: true,
+         plugins: [
+            'autolink',
+            'codesample',
+            'link',
+            'lists',
+            'media',
+            'powerpaste',
+            'table',
+            'image',
+            'quickbars',
+            'codesample',
+            'help'
+         ],
+         toolbar: false,
+         quickbars_insert_toolbar: 'quicktable image media codesample',
+         quickbars_selection_toolbar: 'bold italic underline | formatselect | blockquote quicklink',
+         contextmenu: 'undo redo | inserttable | cell row column deletetable | help',
+         powerpaste_word_import: 'clean',
+         powerpaste_html_import: 'clean',
+      };
+
+      tinymce.init(dfreeHeaderConfig);
+      tinymce.init(dfreeBodyConfig);
+     
+    </script> 
+   
+{% endblock %}
+
+{% block body %}
+      <div class="app">
+      <div class="app-menu memento-app">
+         <div id="app-menu-sidenav">
+            <div><a href="#">Link 1</a></div>
+            <div><a href="#">Link 2</a></div>
+            <div><a href="#">Link 3</a></div>
+         </div>
+         <div class="app-layout journal-board">
+            <aside aria-label="Journal list" class="app-layout-board" id="app-layout-board">
+               <div class="menu-bar">
+                  <button aria-label="Menu • Ctrl+Shift+U" accesskey="u" class="icon-button" type="button" onclick="openNav()" id="SettingNav">
+                     <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect>
+                        <path d="M21 11H3v2H21Zm0-5H3V8H21Zm0 10H3v2H21Z"></path></svg>
+                  </button>
+                  <div id="journal-title" aria-hidden="true">Your journals</div>
+                  <div id="journal-toolbar_button-sidebar">
+                     <button aria-label="Toggle Focus Mode" class="icon-button" type="button" data-title="Toggle Focus Mode" title="Toggle Focus Mode" id="FullWrite-icon-buttom">
+                        <svg class="icon-sidebar" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                           <rect x="0" fill="none" width="24" height="24"></rect>
+                           <path d="M20 4H4A2 2 0 0 0 2 6V18a2 2 0 0 0 2 2H20a2 2 0 0 0 2-2V6A2 2 0 0 0 20 4ZM4 6H7V18H4ZM20 18H9V6H20Z"></path>
+                        </svg></button>
+                  </div>
+               </div>
+               <div class="search-field">
+                  <button aria-label="Focus search field" class="icon-button">
+                     <svg class="icon-search-small" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><rect x="0" fill="none" width="16" height="16"></rect>
+                        <path fill-rule="evenodd" d="M6.54 12c-3.037 0.022-5.518-2.423-5.54-5.46s2.423-5.518 5.46-5.54S11.978 3.423 12 6.46c0 0.027 0 0.053 0 0.08C11.978 9.546 9.546 11.978 6.54 12zM6.54 3C4.607 2.978 3.022 4.527 3 6.46 2.978 8.393 4.528 9.978 6.46 10 8.393 10.022 9.978 8.473 10 6.54c0.022-1.933-1.527-3.518-3.46-3.54C6.54 3 6.54 3 6.54 3zM10.939 12.349l1.414-1.414 2.616 2.616 -1.414 1.414L10.939 12.349z"></path></svg>
+                  </button>
+                  <input type="search" placeholder="Search your journals" spellcheck="false" value="" class="search-box" size="33">
+               </div>
+               <div class="journal-list-is-empty" id="list-is-empty">
+                  <div id="journal-list-items">
+                     <ul id="list-of-journals">
+                     </ul>
+                  </div>
+                  <div class="journal-list-theme" id="journal-list-theme">
+                     <div class="no-journal-icon" style="text-align: center;" id="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                           <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                           <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                           <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                         </svg>
+                     </div>
+                     <div class="list-journal-button" id="list-journal-button">
+                        <button id="list-icon-bton" style="color: blue;">Create entry</button>
+                     </div>
+                  </div>
+               </div>
+            </aside>
+            <main aria-label="Editor" class="app-layout-editor">
+               <div class="editor-toolbar-wrapper">
+                  <div class="editor-toolbar">
+                     <div class="editor-toolbar_column-left" style="display: none;" id="editor-toolbar_column-left">
+                        <button aria-label="New Entry • Ctrl+Shift+I" accesskey="i" class="icon-button" type="button" id="editor-toolbar-button">
+                           <svg class="icon-new-journal" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect>
+                              <path d="M9.707 12.879L19.59 3 21 4.41l-9.879 9.883L9 15 9.707 12.879zM18 18H6V6h7V4H6.002C4.896 4 4 4.896 4 6.002v11.996C4 19.104 4.896 20 6.002 20h11.996C19.104 20 20 19.104 20 17.998V11h-2V18z"></path>
+                           </svg>
+                        </button>
+                        <button aria-label="Back • Ctrl+Shift+L" class="icon-button" type="button" data-title="Back • Ctrl+Shift+L" title="Back • Ctrl+Shift+L" class="journal-toolbar__button journal-toolbar-back" id="journal-toolbar-back">
+                           <svg class="icon-back" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                              <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                            </svg>
+                        </button>
+                     </div>
+                  </div>
+                  <div class="editor-toolbar_column-right" id="editor-toolbar_column-right">
+                     <button aria-label="Actions" class="icon-button" type="button" data-title="Actions" title="Actions" id="logout-button">
+                        <svg class="icon-ellipsis-outline" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
+                           <rect x="0" fill="none" width="24" height="24"></rect>
+                           <path d="M12 2C6.486 2 2 6.486 2 12c0 5.514 4.486 10 10 10 5.514 0 10-4.486 10-10C22 6.486 17.514 2 12 2zM12 20c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8S16.411 20 12 20zM13.5 12c0 0.828-0.672 1.5-1.5 1.5s-1.5-0.672-1.5-1.5 0.672-1.5 1.5-1.5S13.5 11.172 13.5 12zM9 12c0 0.828-0.672 1.5-1.5 1.5S6 12.828 6 12s0.672-1.5 1.5-1.5S9 11.172 9 12zM18 12c0 0.828-0.672 1.5-1.5 1.5S15 12.828 15 12s0.672-1.5 1.5-1.5S18 11.172 18 12z"></path>
+                        </svg>
+                     </button>
+                  </div>
+               </div>
+               <div id="journal-editor-area" style="display: none;">
+                  <form>
+                     <h3 id="journal-editor-header" contenteditable="true" style="position: relative;" spellcheck="false">Title</h3>
+                     <div id="journal-editor-body" contenteditable="true" style="position: relative;" spellcheck="false"></div>
+                  </form>
+               </div>
+               <div class="logo-holder" id="logo-holder">
+                  <img src="{{ url_for('static', filename='img/logo1.jpeg') }}" alt="Logo" class="logo">
+               </div>
+            </main>
+         </div>
+         <div class="general-action-menu" id="general-action-menu" style="display: none;">
+            <div id="log-out"><a href="{{ url_for('.logout') }}">Log out</a></div>
+         </div>
+      </div>   
+   <!-- Custom JavaScript code-->
+    <script src="{{ url_for('static', filename='js/myScript.js') }}"></script>
+{% endblock %}

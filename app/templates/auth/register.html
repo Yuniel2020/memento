@@ -1,24 +1,30 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class="login-form" style="background-color:rgb(0, 17, 255);" >
-    <form action="/register" method="post">
+<div class="register-form" style="background-color: aqua;" >
+    <form method="post" autocomplete="off">
         <div>
             <div class="col-6">
-                {{ form.hidden_tag() }}
-                <label for="formGroupExampleInput" class="form-label">{{ form.name() }}</label>
-             {#  <input name="username" type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" required="required" autocomplete="off">  #} 
+                {{ form.hidden_tag() }}                
+                    <label for="formGroupExampleInput" class="form-label">{{ form.username( placeholder="Username") }}</label>
+                    {#  <input name="username" type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" required="required" autocomplete="off">  #}
+                {% for error in form.username.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
             </div>
             <div class="col-6" style="padding-top: 30px;">
-                <label for="formGroupExampleInput2" class="form-label">{{ form.email() }}</label>
+                <label for="formGroupExampleInput2" class="form-label">{{ form.email( placeholder="Email" ) }}</label>
+                {#<input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password" required="required" autocomplete="off">#}
+                {% for error in form.email.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </div>
+            <div class="col-6" style="padding-top: 30px;">
+                <label for="formGroupExampleInput2" class="form-label">{{ form.password( placeholder="Password",  ) }}</label>
                 {#<input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password" required="required" autocomplete="off">#}
             </div>
             <div class="col-6" style="padding-top: 30px;">
-                <label for="formGroupExampleInput2" class="form-label">{{ form.password() }}</label>
-                {#<input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password" required="required" autocomplete="off">#}
-            </div>
-            <div class="col-6" style="padding-top: 30px;">
-                <label for="formGroupExampleInput2" class="form-label">{{ form.password2() }}</label>
+                <label for="formGroupExampleInput2" class="form-label">{{ form.password2( placeholder="Confirm Password" ) }}</label>
                 {#<input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password" required="required" autocomplete="off">#}
             </div>
         </div>

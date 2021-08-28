@@ -3,11 +3,11 @@
 {% block body %}
 
 <div class="login-form" style="background-color: blanchedalmond;" >
-    <form action="/login" method="post">
+    <form method="post" autocomplete="off" >
         <div>
             <div class="col-6">
                 {{ form.hidden_tag() }}
-                <label for="formGroupExampleInput" class="form-label">{{ form.name() }}</label>
+                <label for="formGroupExampleInput" class="form-label">{{ form.email() }}</label>
              {#  <input name="username" type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" required="required" autocomplete="off">  #} 
             </div>
             <div class="col-6" style="padding-top: 30px;">
@@ -16,9 +16,10 @@
             </div>
         </div>
         <div class="col-3" style="padding-top:3px;">
-            {{ form.submit() }}
-            {#<button name="sign-in" value="sign-in" type="submit" class="btn btn-primary">Sign in</button>#}
+            {{form.remember_me.label}}{{form.remember_me() }} <br />
         </div>
+        <a href="{{ url_for('auth.register') }}">Click here to register</a>
+        {{ form.submit() }}
     </form>
 </div>
 
