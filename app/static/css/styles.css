@@ -107,11 +107,12 @@ svg {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 0 15px;
+  padding: 0 0px;
 }
 
 .editor-toolbar_column-left {
   align-items: center;
+  display: flex;
 }
 
 .editor-toolbar_column-left > .icon-button {
@@ -133,7 +134,6 @@ svg {
   display: flex;
   background-color: blanchedalmond;
   top: 40px;
-
 }
 
 .search-field > input:focus {
@@ -161,9 +161,29 @@ svg {
   overflow: hidden;
   background: inherit;
   justify-content: center;
-
 }
 
+.selectable-journal-item {
+  padding: 10px;
+  border-bottom: solid 1px;
+  border-color: #dcdcde;
+} 
+
+#list-of-journals > button {
+  display: flex;
+}
+
+#list-of-journals  {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.selected-item {
+  background: #ced9f2;
+  padding: 10px;
+  border-bottom: solid 1px;
+  border-color: #dcdcde;
+}
 
 .no-journal-icon > svg {
   width: 40%;

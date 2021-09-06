@@ -1,5 +1,4 @@
-
-/* Code Sidenav Menu */
+// SIDENAV MENU 
 // Opening 
 var elSettingNav = document.getElementById('SettingNav');
 elSettingNav.addEventListener('click', function() {
@@ -11,22 +10,30 @@ var elNavClose = document.getElementById('app-menu-sidenav');
 elNavClose.addEventListener('mouseleave', function() {
   document.getElementById("app-menu-sidenav").style.display = "none";
 }, false);
+/* ===================================================================*/
 
-/* Code FullWrite Modus Open*/
+// FULLWRITE MODUS 
+// Open
 var elFullWrite = document.getElementById('FullWrite-icon-buttom');
 elFullWrite.addEventListener('click', function() {
   document.getElementById('app-layout-board').style.display = 'none';
-  document.getElementById('editor-toolbar_column-left').style.display = 'block';
+  // Showing the editor-toolbar-button
+  document.getElementById('editor-toolbar-button').style.display = 'block';
+  // Showing the journal-toolbar-back
+  document.getElementById('journal-toolbar-back').style.display = 'block';
 }, false);
-
-/* Code FullWrite Modus Close*/
+ 
+// Close
 var elFullWriteClose = document.getElementById('journal-toolbar-back');
 elFullWriteClose.addEventListener('click', function() {
+  // Showing left-side board
   document.getElementById('app-layout-board').style.display = 'block';
-  document.getElementById('editor-toolbar_column-left').style.display = 'none';
+  // Hiding journal-toolbar-back and editor-toolbar-button
+  document.getElementById('journal-toolbar-back').style.display = 'none';
 }, false);
+/* ====================================================================== */
 
-/* Code general-action-menu*/
+// GENERAL-ACTION MENU
 // Opening
 var elLogout = document.getElementById('logout-button');
 elLogout.addEventListener('click', function() {
@@ -39,8 +46,9 @@ elNavClose.addEventListener('mouseleave', function() {
   document.getElementById("general-action-menu").style.display = "none";
 }, false);
 
-/* Code journal-editor */
-// Getting the 'add journal button'
+// CREATING JOURNAL ITEMS (LIST-AREA)
+// Code journal-editor
+// Getting the 'add journal button' 
 var elListIconBton = document.getElementById('list-icon-bton');
 // Getting the <ul> element
 var list = document.getElementById('list-of-journals');
@@ -48,35 +56,87 @@ var list = document.getElementById('list-of-journals');
 elListIconBton.addEventListener('click', function() {
   // Showing the editor area
   document.getElementById('journal-editor-area').style.display = 'block';
+  // Showing the editor-toolbar-button
+  document.getElementById('editor-toolbar-button').style.display = 'block'
   // Hiding the editor-area-logo 
   document.getElementById('logo-holder').style.display = 'none'
   // Changing class attribute od div container 
   document.getElementById('list-is-empty').className = 'journal-list is-not-empty';
   // Hiding list-area-logo
   document.getElementById('journal-list-theme').style.display = 'none'
+
   // ADDING ITEMS TO THE START OF LIST
-  // Create element
-  var newItemFirst = document.createElement('li');
-  // Create node
-  var newTextFirst = document.createTextNode('Item 1');
+  // Create element: <li>
+  var newItemFirstLi = document.createElement('li');
+  // Create element: <button>
+  var newItemFirstBton = document.createElement('button');
+  // Create element: <div>
+  var selectableDiv = document.createElement('div');
+  // Create text node 
+  var newItemFirstText = document.createTextNode('Item 1');
   // Adding text node to element
-  newItemFirst.appendChild(newTextFirst);
+  newItemFirstLi.appendChild(newItemFirstText);
+  // Adding <li> element to button node
+  newItemFirstBton.appendChild(newItemFirstLi);
+  // Adding <button> node to div element
+  selectableDiv.appendChild(newItemFirstBton);
+  // Adding class to div node
+   selectableDiv.className = 'selectable-journal-item';
   // Adding element to the list
-  list.insertBefore(newItemFirst, list.firstChild);
+  list.insertBefore(selectableDiv, list.firstChild);
 }, false);
 
-/* journal-list-theme */
-/* <button>
-<div id="journal-list-item" style="border: solid 1px; width: 280px; display: flex; ">
-   <span id="item-num">Item </span>
-</div>
-</button> 
+// // CREATING JOURNAL ITEMS (EDITOR-TOOLBAR-AREA)
+/* Code journal-editor */
+// Getting the 'add journal button' 
+var elEdtorBarBton = document.getElementById('editor-toolbar-button');
+elEdtorBarBton.addEventListener('click', function() {
+  
+  // ADDING ITEMS TO THE START OF LIST
+  // Create element: <li>
+  var newItemFirstLi = document.createElement('li');
+  // Create element: <button>
+  var newItemFirstBton = document.createElement('button');
+  // Create element: <div>
+  var selectableDiv = document.createElement('div');
+  // Create text node 
+  var newItemFirstText = document.createTextNode('Item 1');
+  // Adding text node to element
+  newItemFirstLi.appendChild(newItemFirstText);
+  // Adding <li> element to button node
+  newItemFirstBton.appendChild(newItemFirstLi);
+  // Adding <button> node to div element
+  selectableDiv.appendChild(newItemFirstBton);
+  // Adding class to div node
+   selectableDiv.className = 'selectable-journal-item';
+  // Adding element to the list
+  list.insertBefore(selectableDiv, list.firstChild);
+}, false);
+/* ====================================================== */
 
-<button aria-label="New Entry • Ctrl+Shift+I" accesskey="i" class="icon-button" type="button" id="editor-toolbar-button">
-  <svg class="icon-new-journal" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect>
-     <path d="M9.707 12.879L19.59 3 21 4.41l-9.879 9.883L9 15 9.707 12.879zM18 18H6V6h7V4H6.002C4.896 4 4 4.896 4 6.002v11.996C4 19.104 4.896 20 6.002 20h11.996C19.104 20 20 19.104 20 17.998V11h-2V18z"></path>
-  </svg>
-</button>*/
+// SELECTING JOURNAL-ITEMS
+// Get <ul> element
+var elList = document.getElementById('list-of-journals');
+// Get HTMLCollections of <ul> element children 
+var itemList = document.getElementsByTagName('ul')[0].children; 
 
+elList.addEventListener('click', function(e) {                       // Add click event listener and pass event object (event delegation) 
+  target = e.target;                                                 // Get event object target: where the click happened 
+  for (var items = 0; items < itemList.length; items++) {            // Iterate over the list
+    if (itemList[items] == target) {                                 // If target == element in list
+      itemList[items].className = 'selected-item';                   // Set class to: 
+    } else {                                                         // Otherwise
+      itemList[items].className = 'selectable-journal-item';         // Set to: 
+    }
+  }
+}, false);
 
-
+elList.addEventListener('DOMNodeInserted', function() {               // Add event listener to DOM modification (insertion) 
+  itemList[0].className = 'selected-item';                            // Set class attribute of new node
+  if (itemList.length > 1) {                                          // If list is greater than 1, 
+    for (var items = 1; items < itemList.length; items++) {           // Iterate over the list, and 
+      itemList[items].className = 'selectable-journal-item';          // set class attribute of rest of list to selectable-journal-item
+    }
+  }
+}, false);
+ 

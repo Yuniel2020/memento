@@ -57,7 +57,7 @@
          <div class="app-layout journal-board">
             <aside aria-label="Journal list" class="app-layout-board" id="app-layout-board">
                <div class="menu-bar">
-                  <button aria-label="Menu • Ctrl+Shift+U" accesskey="u" class="icon-button" type="button" onclick="openNav()" id="SettingNav">
+                  <button aria-label="Menu • Ctrl+Shift+U" accesskey="u" class="icon-button" type="button" id="SettingNav">
                      <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect>
                         <path d="M21 11H3v2H21Zm0-5H3V8H21Zm0 10H3v2H21Z"></path></svg>
                   </button>
@@ -99,13 +99,13 @@
             <main aria-label="Editor" class="app-layout-editor">
                <div class="editor-toolbar-wrapper">
                   <div class="editor-toolbar">
-                     <div class="editor-toolbar_column-left" style="display: none;" id="editor-toolbar_column-left">
-                        <button aria-label="New Entry • Ctrl+Shift+I" accesskey="i" class="icon-button" type="button" id="editor-toolbar-button">
+                     <div class="editor-toolbar_column-left" id="editor-toolbar_column-left">
+                        <button aria-label="New Entry • Ctrl+Shift+I" accesskey="i" class="icon-button" type="button" id="editor-toolbar-button" style="display: none;">
                            <svg class="icon-new-journal" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect>
                               <path d="M9.707 12.879L19.59 3 21 4.41l-9.879 9.883L9 15 9.707 12.879zM18 18H6V6h7V4H6.002C4.896 4 4 4.896 4 6.002v11.996C4 19.104 4.896 20 6.002 20h11.996C19.104 20 20 19.104 20 17.998V11h-2V18z"></path>
                            </svg>
                         </button>
-                        <button aria-label="Back • Ctrl+Shift+L" class="icon-button" type="button" data-title="Back • Ctrl+Shift+L" title="Back • Ctrl+Shift+L" class="journal-toolbar__button journal-toolbar-back" id="journal-toolbar-back">
+                        <button aria-label="Back • Ctrl+Shift+L" class="icon-button" type="button" data-title="Back • Ctrl+Shift+L" title="Back • Ctrl+Shift+L" class="journal-toolbar__button journal-toolbar-back" id="journal-toolbar-back" style="display: none;">
                            <svg class="icon-back" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                               <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                             </svg>
