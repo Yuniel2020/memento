@@ -7,7 +7,6 @@
             <div class="col-6">
                 {{ form.hidden_tag() }}                
                     <label for="formGroupExampleInput" class="form-label">{{ form.username( placeholder="Username") }}</label>
-                    {#  <input name="username" type="text" class="form-control" id="formGroupExampleInput" placeholder="Username" required="required" autocomplete="off">  #}
                 {% for error in form.username.errors %}
                     <li>{{ error }}</li>
                 {% endfor %}
@@ -20,7 +19,7 @@
                 {% endfor %}
             </div>
             <div class="col-6" style="padding-top: 30px;">
-                <label for="formGroupExampleInput2" class="form-label">{{ form.password( placeholder="Password",  ) }}</label>
+                <label for="formGroupExampleInput2" class="form-label">{{ form.password( placeholder="Password") }}</label>
                 {#<input name="password" type="text" class="form-control" id="formGroupExampleInput2" placeholder="Password" required="required" autocomplete="off">#}
             </div>
             <div class="col-6" style="padding-top: 30px;">

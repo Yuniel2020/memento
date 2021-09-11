@@ -18,7 +18,7 @@ var elFullWrite = document.getElementById('FullWrite-icon-buttom');
 elFullWrite.addEventListener('click', function() {
   document.getElementById('app-layout-board').style.display = 'none';
   // Showing the editor-toolbar-button
-  document.getElementById('editor-toolbar-button').style.display = 'block';
+  /* document.getElementById('editor-toolbar-button').style.display = 'block'; */
   // Showing the journal-toolbar-back
   document.getElementById('journal-toolbar-back').style.display = 'block';
 }, false);
@@ -57,7 +57,7 @@ elListIconBton.addEventListener('click', function() {
   // Showing the editor area
   document.getElementById('journal-editor-area').style.display = 'block';
   // Showing the editor-toolbar-button
-  document.getElementById('editor-toolbar-button').style.display = 'block'
+  /*document.getElementById('editor-toolbar-button').style.display = 'block'*/
   // Hiding the editor-area-logo 
   document.getElementById('logo-holder').style.display = 'none'
   // Changing class attribute od div container 
@@ -68,12 +68,14 @@ elListIconBton.addEventListener('click', function() {
   // ADDING ITEMS TO THE START OF LIST
   // Create element: <li>
   var newItemFirstLi = document.createElement('li');
+  // Adding class to li node
+  newItemFirstLi.className = 'text-content';
   // Create element: <button>
   var newItemFirstBton = document.createElement('button');
   // Create element: <div>
   var selectableDiv = document.createElement('div');
   // Create text node 
-  var newItemFirstText = document.createTextNode('Item 1');
+  var newItemFirstText = document.createTextNode('New Entry...');
   // Adding text node to element
   newItemFirstLi.appendChild(newItemFirstText);
   // Adding <li> element to button node
@@ -95,12 +97,14 @@ elEdtorBarBton.addEventListener('click', function() {
   // ADDING ITEMS TO THE START OF LIST
   // Create element: <li>
   var newItemFirstLi = document.createElement('li');
+  // Adding class to li node
+  newItemFirstLi.className = 'text-content';
   // Create element: <button>
   var newItemFirstBton = document.createElement('button');
   // Create element: <div>
   var selectableDiv = document.createElement('div');
   // Create text node 
-  var newItemFirstText = document.createTextNode('Item 1');
+  var newItemFirstText = document.createTextNode('New Entry...');
   // Adding text node to element
   newItemFirstLi.appendChild(newItemFirstText);
   // Adding <li> element to button node
@@ -139,4 +143,40 @@ elList.addEventListener('DOMNodeInserted', function() {               // Add eve
     }
   }
 }, false);
+
+/* ====================================================== */
+
+// WRITING TITlE
+
+// Getting title node
+var elTitle = document.getElementById('journal-editor-header');
+var selectedEntry = document.getElementsByClassName('selected-item')
+var textEntered;
+
+elTitle.addEventListener('keyup', function(e) {
+  target = e.target;
+  textEntered = target.innerText;
+  // selectedEntry.contentEditable = 'true';
+  selectedEntry[0].textContent = textEntered;
+}, false);
+
+/* ====================================================== */
+ // GETTING DATA FROM THE EDITORS
+ $('.save-button').on('click', function() {
+  // Get content of the header (title) editor:
+  var elTitle = tinymce.get('journal-editor-header').getContent();
+  // Get content of the body editor:
+  var elBody = tinymce.get('journal-editor-body').getContent();
+  // 
+  $.ajax({
+    url:'save_journal',
+    type: 'POST',
+    data: {
+     elTitle: elTitle,
+     elBody: elBody
+    }
+  });
+});
  
+
+

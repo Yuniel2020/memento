@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-   {{ super() }}
-
+   {{ super() }}   
    <script>
        var dfreeHeaderConfig = {
          selector: '#journal-editor-header',
@@ -20,6 +19,7 @@
          inline: true,
          plugins: [
             'autolink',
+            'autosave',
             'codesample',
             'link',
             'lists',
@@ -38,7 +38,7 @@
          powerpaste_word_import: 'clean',
          powerpaste_html_import: 'clean',
       };
-
+      
       tinymce.init(dfreeHeaderConfig);
       tinymce.init(dfreeBodyConfig);
      
@@ -91,7 +91,7 @@
                          </svg>
                      </div>
                      <div class="list-journal-button" id="list-journal-button">
-                        <button id="list-icon-bton" style="color: blue;">Create entry</button>
+                        <button id="list-icon-bton" style="color:black; opacity: 0.4;">Create entry</button>
                      </div>
                   </div>
                </div>
@@ -113,6 +113,7 @@
                      </div>
                   </div>
                   <div class="editor-toolbar_column-right" id="editor-toolbar_column-right">
+                     <button class="btn btn-success save-button">Save</button>
                      <button aria-label="Actions" class="icon-button" type="button" data-title="Actions" title="Actions" id="logout-button">
                         <svg class="icon-ellipsis-outline" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                            <rect x="0" fill="none" width="24" height="24"></rect>
@@ -122,10 +123,8 @@
                   </div>
                </div>
                <div id="journal-editor-area" style="display: none;">
-                  <form>
-                     <h3 id="journal-editor-header" contenteditable="true" style="position: relative;" spellcheck="false">Title</h3>
-                     <div id="journal-editor-body" contenteditable="true" style="position: relative;" spellcheck="false"></div>
-                  </form>
+                  <h2 id="journal-editor-header" contenteditable="true" style="position: relative;" spellcheck="false">Title</h2>
+                  <div id="journal-editor-body" contenteditable="true" style="position: relative;" spellcheck="false"></div>
                </div>
                <div class="logo-holder" id="logo-holder">
                   <img src="{{ url_for('static', filename='img/logo1.jpeg') }}" alt="Logo" class="logo">

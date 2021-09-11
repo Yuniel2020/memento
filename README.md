@@ -11,3 +11,8 @@ TODO
    - Design dashboard(remembrance of simplenote)
    3.1. Javascript ('interactive' buttons, etc.)
    3.2. See how to get content from Tiny editor
+      - I have two text html-element: 
+         A. Title
+         B. Body
+         I need to get both of the text and store them 
+         into the database.

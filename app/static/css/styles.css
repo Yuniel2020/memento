@@ -42,7 +42,6 @@ svg {
 }
 
 /* Left Side */
-
 /*.app {
   display:flex;
   position: absolute;
@@ -120,9 +119,19 @@ svg {
 }
 
 .editor-toolbar_column-right {
+  display: flex;
   align-items: center;
   padding: 0 10px;
   margin-top: 5px;
+}
+
+.save-button {
+  height: 25px;
+  line-height: 3px;
+  /* padding: 0 6px; */
+  font-size: 14px;     
+  border-radius: 80px;
+  margin: 10px;
 }
 
 .general-action-menu {
@@ -164,7 +173,7 @@ svg {
 }
 
 .selectable-journal-item {
-  padding: 10px;
+  padding: 15px;
   border-bottom: solid 1px;
   border-color: #dcdcde;
 } 
@@ -180,7 +189,7 @@ svg {
 
 .selected-item {
   background: #ced9f2;
-  padding: 10px;
+  padding: 15px;
   border-bottom: solid 1px;
   border-color: #dcdcde;
 }
@@ -211,15 +220,15 @@ svg {
 #journal-editor-area {
   width: 990px;
   position: relative;
-  text-align: center;
+  text-align: left;
   color: #007bff;
   font-size: 20px;
   padding: 20px;
 } 
 
-#journal-editor-area *[contentEditable="true"]:hover {
+/*#journal-editor-area *[contentEditable="true"]:hover {
   outline: 1px solid #1976D2;
-} 
+}*/ 
 
  #journal-editor-area h1 {
   color: #1976D2;
@@ -227,8 +236,9 @@ svg {
 } 
 
  #journal-editor-area h2 {
-  color: #1976D2;
-  font-size: 2em;
+  color:black;
+  font-size: 1.5em;
+  padding-left: 20px;
 } 
 
  #journal-editor-area h3 {
@@ -250,9 +260,10 @@ svg {
   list-style: decimal;
 }
 
-#journal-editor-area a {
+/*#journal-editor-area a {
   text-decoration: underline;
-}
+}*/
+
 #journal-editor-header{
   margin-top: 15px;
 }

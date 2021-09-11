@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 from . import db, login_manager
 from flask_login import UserMixin
 from datetime import datetime
@@ -16,7 +17,8 @@ class User(UserMixin, db.Model):
     # This method give the table a readable string representation that
     #  can be use for debugging and testing purposes.
     def __repr__(self):
-        return '<User %r>' % self.username
+        return "<User(username=' %s', email=' %s', password_hash=' %s')>" % (self.username,
+                      self.email, self.password_hash)
     
 # Defining the models for Posts table
 class Post(db.Model):
@@ -27,10 +29,13 @@ class Post(db.Model):
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    def __repr__(self):
-        return '<Post %r>' % self.post
+    user = relationship('User', back_populates='posts')
 
-# This function will be called when the extension requires to load 
+    def __repr__(self):
+        return "<Post(title='%s', body=' %s', timestamp=' %s')>" % (self.title,
+                                self.body, self.timestamp)          
+
+    # This function will be called when the extension requires to load 
     # a user from the database given its identifier
     @login_manager.user_loader # The decorator is used to register the function with Flask-Login
     def load_user(user_id):

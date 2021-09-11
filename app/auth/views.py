@@ -1,12 +1,12 @@
-from flask import render_template, redirect, flash, url_for, current_app
+from flask import render_template, redirect, flash, url_for, current_app, request
 from flask_login.utils import logout_user
 from . import auth
 from .forms import RegisterForm, LoginForm
 from .. import db
-from .. models import User
+from .. models import User, Post
 from .. email import send_email
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import login_required, login_user, logout_user
+from flask_login import login_required, login_user, logout_user, current_user
 
 
 @auth.route('/login', methods=['GET','POST'])
@@ -52,10 +52,14 @@ def dashboard():
     """ Dashboard View Function """
     return render_template('auth/dashboard.html')
 
-@auth.route('/new_post', methods=['POST'])
+
+@auth.route('/save_journal', methods=['POST'])
 @login_required
-def new_post():
-    return 
-
-
- 
+def save_journal():
+    """ Dashboard-Save View Function """
+    elTitle = request.form.get('elTitle')
+    elBody = request.form.get('elBody')
+    journal = Post(title = elTitle, body = elBody, user_id = current_user.id)
+    db.session.add(journal)
+    db.session.commit()
+    return render_template('auth/dashboard.html')
