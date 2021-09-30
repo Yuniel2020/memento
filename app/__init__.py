@@ -1,9 +1,10 @@
 """ This is the app package constructor. Inside of it is created 
-    the factory  function. See pag. 88 """
+    the factory function. See pag. 88 """
 
 from flask import Flask
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
 from config import config
 from flask_login import LoginManager
 
@@ -12,6 +13,7 @@ from flask_login import LoginManager
 # by passing no arguments into the constructors
 mail = Mail()
 db = SQLAlchemy()
+ma = Marshmallow()
 login_manager = LoginManager() # Initializing Flask-Login in the app factory
 login_manager.login_view = 'auth.login'
 # The login_view attribute of the LoginManager object sets the endpoint for the
@@ -27,6 +29,7 @@ def create_app(config_name):
 
     mail.init_app(app)
     db.init_app(app)
+    ma.init_app(app)
     login_manager.init_app(app)
 
     """ Registering the blueprint inside the app factory """

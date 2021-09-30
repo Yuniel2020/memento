@@ -5,55 +5,30 @@
    <script>
        var dfreeHeaderConfig = {
          selector: '#journal-editor-header',
+         plugins: [ 'quickbars' ],
+         toolbar: false,
          menubar: false,
          inline: true,
-         toolbar: false,
-         plugins: [ 'quickbars' ],
-         quickbars_insert_toolbar: 'undo redo',
-         quickbars_selection_toolbar: 'italic underline',
       };
 
       var dfreeBodyConfig = {
          selector: '#journal-editor-body',
+         plugins: [ 'quickbars'],
+         toolbar: false,
          menubar: false,
          inline: true,
-         plugins: [
-            'autolink',
-            'autosave',
-            'codesample',
-            'link',
-            'lists',
-            'media',
-            'powerpaste',
-            'table',
-            'image',
-            'quickbars',
-            'codesample',
-            'help'
-         ],
-         toolbar: false,
-         quickbars_insert_toolbar: 'quicktable image media codesample',
-         quickbars_selection_toolbar: 'bold italic underline | formatselect | blockquote quicklink',
-         contextmenu: 'undo redo | inserttable | cell row column deletetable | help',
-         powerpaste_word_import: 'clean',
-         powerpaste_html_import: 'clean',
       };
       
       tinymce.init(dfreeHeaderConfig);
       tinymce.init(dfreeBodyConfig);
      
-    </script> 
+    </script>
    
 {% endblock %}
 
 {% block body %}
       <div class="app">
-      <div class="app-menu memento-app">
-         <div id="app-menu-sidenav">
-            <div><a href="#">Link 1</a></div>
-            <div><a href="#">Link 2</a></div>
-            <div><a href="#">Link 3</a></div>
-         </div>
+      <div class="memento-app"> <!-- app-menu  -->
          <div class="app-layout journal-board">
             <aside aria-label="Journal list" class="app-layout-board" id="app-layout-board">
                <div class="menu-bar">
@@ -78,29 +53,37 @@
                   <input type="search" placeholder="Search your journals" spellcheck="false" value="" class="search-box" size="33">
                </div>
                <div class="journal-list-is-empty" id="list-is-empty">
-                  <div id="journal-list-items">
+                  <div id="journal-list-items"></div>
                      <ul id="list-of-journals">
+                        {# {{ journal_title_list }} #}
+                        {% for row in journal_title_list %}
+                           <div class="selectable-journal-item" data-item-num="{{ row.id }}"><button><li class="text-content">{{ row.title }}</li></button></div>
+                        {% endfor %}
                      </ul>
                   </div>
-                  <div class="journal-list-theme" id="journal-list-theme">
+                  <div class="journal-list-logo-elements" id="journal-list-logo-elements">
                      <div class="no-journal-icon" style="text-align: center;" id="">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="4" fill="currentColor" class="bi bi-journal-text" viewBox="0 0 16 16">
                            <path d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
                            <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
                            <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
-                         </svg>
+                        </svg>
                      </div>
                      <div class="list-journal-button" id="list-journal-button">
-                        <button id="list-icon-bton" style="color:black; opacity: 0.4;">Create entry</button>
+                           <button id="list-icon-bton" style="color:black; opacity: 0.4;">Create entry</button>
                      </div>
                   </div>
-               </div>
+                  {% if journal_title_list|length != 0 %}
+                     <script>document.getElementById('list-is-empty').className = 'journal-list-is-not-empty';
+                        document.getElementById('journal-list-theme').style.display = 'none';
+                     </script>
+                  {% endif %}
             </aside>
             <main aria-label="Editor" class="app-layout-editor">
                <div class="editor-toolbar-wrapper">
                   <div class="editor-toolbar">
                      <div class="editor-toolbar_column-left" id="editor-toolbar_column-left">
-                        <button aria-label="New Entry • Ctrl+Shift+I" accesskey="i" class="icon-button" type="button" id="editor-toolbar-button" style="display: none;">
+                        <button aria-label="New Entry • Ctrl+Shift+I" accesskey="i" class="icon-button" type="button" id="editor-toolbar-button" style="display:;">
                            <svg class="icon-new-journal" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect>
                               <path d="M9.707 12.879L19.59 3 21 4.41l-9.879 9.883L9 15 9.707 12.879zM18 18H6V6h7V4H6.002C4.896 4 4 4.896 4 6.002v11.996C4 19.104 4.896 20 6.002 20h11.996C19.104 20 20 19.104 20 17.998V11h-2V18z"></path>
                            </svg>
@@ -113,7 +96,10 @@
                      </div>
                   </div>
                   <div class="editor-toolbar_column-right" id="editor-toolbar_column-right">
-                     <button class="btn btn-success save-button">Save</button>
+                     <button id="submit-button" class="btn btn-success submit-button" style="display:none;">Submit</button>
+                     <button id="edit-button" class="btn btn-danger edit-button" style="display:none;">Edit</button>
+                     <button id="delete-button" class="btn btn-danger delete-button" style="display:none;">Delete</button>
+                     <button id="save-button" class="btn btn-success save-button" style="display:none;">Save</button>
                      <button aria-label="Actions" class="icon-button" type="button" data-title="Actions" title="Actions" id="logout-button">
                         <svg class="icon-ellipsis-outline" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
                            <rect x="0" fill="none" width="24" height="24"></rect>
@@ -123,9 +109,14 @@
                   </div>
                </div>
                <div id="journal-editor-area" style="display: none;">
-                  <h2 id="journal-editor-header" contenteditable="true" style="position: relative;" spellcheck="false">Title</h2>
+                  <div id="journal-editor-header" contenteditable="true" style="position: relative;" spellcheck="false">Title</div>
                   <div id="journal-editor-body" contenteditable="true" style="position: relative;" spellcheck="false"></div>
                </div>
+               <section id="view-mode"  style="display: none;">
+                  <div id="show-head"></div>
+                  <div id="show-body"></div>
+               </section>
+               
                <div class="logo-holder" id="logo-holder">
                   <img src="{{ url_for('static', filename='img/logo1.jpeg') }}" alt="Logo" class="logo">
                </div>
