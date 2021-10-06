@@ -3,9 +3,8 @@ import os
 from app import create_app, db 
 from app.models import User, Post
 from flask_migrate import Migrate, upgrade
-from app.models import User, Post
 
-""" Creating an appplication using the app constructor """
+""" Creating an application using the app constructor """
 app = create_app(os.getenv('MEMENTO_CONFIG') or 'default')
 migrate = Migrate(app, db)
 
