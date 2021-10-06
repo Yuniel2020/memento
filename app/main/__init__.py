@@ -7,7 +7,7 @@ from flask import Blueprint
      package where the blueprint is located  """
 main = Blueprint('main', __name__)
 
-""" The modules are imported at the bottom to avoid erros due 
+""" The modules are imported at the bottom to avoid errors due 
     to circular dependencies. See pag. 90 """ 
 """ This is a relative import """
-from . import views, errors
+from . import views, errors, forms

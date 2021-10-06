@@ -5,7 +5,7 @@
    <script>
        var dfreeHeaderConfig = {
          selector: '#journal-editor-header',
-         plugins: [ 'quickbars' ],
+         // plugins: [ 'quickbars' ],
          toolbar: false,
          menubar: false,
          inline: true,
@@ -13,7 +13,7 @@
 
       var dfreeBodyConfig = {
          selector: '#journal-editor-body',
-         plugins: [ 'quickbars'],
+         // plugins: [ 'quickbars'],
          toolbar: false,
          menubar: false,
          inline: true,
@@ -22,8 +22,7 @@
       tinymce.init(dfreeHeaderConfig);
       tinymce.init(dfreeBodyConfig);
      
-    </script>
-   
+    </script>   
 {% endblock %}
 
 {% block body %}
@@ -32,9 +31,8 @@
          <div class="app-layout journal-board">
             <aside aria-label="Journal list" class="app-layout-board" id="app-layout-board">
                <div class="menu-bar">
-                  <button aria-label="Menu • Ctrl+Shift+U" accesskey="u" class="icon-button" type="button" id="SettingNav">
-                     <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><rect x="0" fill="none" width="24" height="24"></rect>
-                        <path d="M21 11H3v2H21Zm0-5H3V8H21Zm0 10H3v2H21Z"></path></svg>
+                  <button aria-label="This app • Ctrl+Shift+U" accesskey="u" class="icon-button" type="button" id="thisApp">
+                     <img src="{{ url_for('static', filename='img/this-app.png') }}" alt="Logo" class="this-app-logo" width="47" height="47">
                   </button>
                   <div id="journal-title" aria-hidden="true">Your journals</div>
                   <div id="journal-toolbar_button-sidebar">
@@ -45,19 +43,12 @@
                         </svg></button>
                   </div>
                </div>
-               <div class="search-field">
-                  <button aria-label="Focus search field" class="icon-button">
-                     <svg class="icon-search-small" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"><rect x="0" fill="none" width="16" height="16"></rect>
-                        <path fill-rule="evenodd" d="M6.54 12c-3.037 0.022-5.518-2.423-5.54-5.46s2.423-5.518 5.46-5.54S11.978 3.423 12 6.46c0 0.027 0 0.053 0 0.08C11.978 9.546 9.546 11.978 6.54 12zM6.54 3C4.607 2.978 3.022 4.527 3 6.46 2.978 8.393 4.528 9.978 6.46 10 8.393 10.022 9.978 8.473 10 6.54c0.022-1.933-1.527-3.518-3.46-3.54C6.54 3 6.54 3 6.54 3zM10.939 12.349l1.414-1.414 2.616 2.616 -1.414 1.414L10.939 12.349z"></path></svg>
-                  </button>
-                  <input type="search" placeholder="Search your journals" spellcheck="false" value="" class="search-box" size="33">
-               </div>
                <div class="journal-list-is-empty" id="list-is-empty">
                   <div id="journal-list-items"></div>
                      <ul id="list-of-journals">
                         {# {{ journal_title_list }} #}
                         {% for row in journal_title_list %}
-                           <div class="selectable-journal-item" data-item-num="{{ row.id }}"><button><li class="text-content">{{ row.title }}</li></button></div>
+                           <div class="selectable-journal-item" data-item-num="{{ row.id }}"><button><li class="text-content">{{ row.title|striptags }}</li></button></div>
                         {% endfor %}
                      </ul>
                   </div>
@@ -97,14 +88,11 @@
                   </div>
                   <div class="editor-toolbar_column-right" id="editor-toolbar_column-right">
                      <button id="submit-button" class="btn btn-success submit-button" style="display:none;">Submit</button>
-                     <button id="edit-button" class="btn btn-danger edit-button" style="display:none;">Edit</button>
+                     <button id="edit-button" class="btn btn-success edit-button" style="display:none;">Edit</button>
                      <button id="delete-button" class="btn btn-danger delete-button" style="display:none;">Delete</button>
                      <button id="save-button" class="btn btn-success save-button" style="display:none;">Save</button>
-                     <button aria-label="Actions" class="icon-button" type="button" data-title="Actions" title="Actions" id="logout-button">
-                        <svg class="icon-ellipsis-outline" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="24" height="24">
-                           <rect x="0" fill="none" width="24" height="24"></rect>
-                           <path d="M12 2C6.486 2 2 6.486 2 12c0 5.514 4.486 10 10 10 5.514 0 10-4.486 10-10C22 6.486 17.514 2 12 2zM12 20c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8S16.411 20 12 20zM13.5 12c0 0.828-0.672 1.5-1.5 1.5s-1.5-0.672-1.5-1.5 0.672-1.5 1.5-1.5S13.5 11.172 13.5 12zM9 12c0 0.828-0.672 1.5-1.5 1.5S6 12.828 6 12s0.672-1.5 1.5-1.5S9 11.172 9 12zM18 12c0 0.828-0.672 1.5-1.5 1.5S15 12.828 15 12s0.672-1.5 1.5-1.5S18 11.172 18 12z"></path>
-                        </svg>
+                     <button aria-label="Log-out" class="btn btn log-out-button" type="button" data-title="Log-out" title="Log-out" id="logout-button">
+                        <a href="{{ url_for('.logout') }}" style="color: black;">Log out</a>
                      </button>
                   </div>
                </div>
@@ -121,9 +109,6 @@
                   <img src="{{ url_for('static', filename='img/logo1.jpeg') }}" alt="Logo" class="logo">
                </div>
             </main>
-         </div>
-         <div class="general-action-menu" id="general-action-menu" style="display: none;">
-            <div id="log-out"><a href="{{ url_for('.logout') }}">Log out</a></div>
          </div>
       </div>   
    <!-- Custom JavaScript code-->

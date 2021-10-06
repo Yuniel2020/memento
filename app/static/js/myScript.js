@@ -5,6 +5,7 @@
 $("#FullWrite-icon-buttom").on("click", function() {
   $("#app-layout-board").css("display", "none");
   $("#journal-toolbar-back").css("display", "block");
+  $("#view-mode").css("margin-left", "15%");
   $("#journal-editor-area").css("margin-left", "15%");  
 });
 
@@ -16,21 +17,9 @@ $("#journal-toolbar-back").on("click", function() {
   // Hiding journal-toolbar-back and editor-toolbar-button
   $("#journal-toolbar-back").css("display", "none");
   $("#journal-editor-area").css("margin-left", "0%");
+  $("#view-mode").css("margin-left", "0%")
+
 });
-
-/* ======= GENERAL-ACTIONS MENU =======  */
-// Opening general-actions menu   ** Change to JQuery **
-var elLogout = document.getElementById('logout-button');
-elLogout.addEventListener('click', function() {
-  document.getElementById('general-action-menu').style.display = 'block';
-}, false);
-
-// Closing general-actions menu
-var elNavClose = document.getElementById('general-action-menu');
-elNavClose.addEventListener('mouseleave', function() {
-  document.getElementById("general-action-menu").style.display = "none";
-}, false);
-
 
 /* ======= CREATING JOURNAL ENTRIES  =========== */
 
@@ -54,10 +43,9 @@ $("#list-icon-bton").on('click', function() {
 $("#editor-toolbar-button").on("click", function() {
 
   // Activating edit mode
-  $("#editor-toolbar-button, #edit-button, #delete-button, #view-mode, #logo-holder").css("display", "none"); // .selectable-journal-item, 
-  // $("#edit-button, #delete-button").css("display", "none"); // .selectable-journal-item
+  $("#editor-toolbar-button, #edit-button, #delete-button, #view-mode, #logo-holder").css("display", "none"); 
   $("#save-button, #journal-editor-area").css("display", "block");
-  // $("#view-mode").css("display", "none");
+  $("#journal-editor-area").css("margin-left", "0%");
 
   // Adding item to the start of the list 
   addEntry();
@@ -65,43 +53,36 @@ $("#editor-toolbar-button").on("click", function() {
 
 // Function that adds entry to the list
 function addEntry() {
-  var $newItemFirstLi = $('<li>').addClass("text-content").text("New Entry...");                        // Create <li> element, add class and text node to it  
-  var $newItemFirstBton = $('<button>').prepend($newItemFirstLi);                                       // Create element: <button>  and prepend the list node to it 
-  var $selectableDiv = $('<div>').addClass("selectable-journal-item").prepend($newItemFirstBton);       // Create <div> element and prepend the button node to it        
+  var $newItemFirstLi = $('<li>').addClass("text-content").text("New Entry...");                         // Create <li> element, add class and text node to it  
+  var $newItemFirstBton = $('<button>').prepend($newItemFirstLi);                                        // Create element: <button>  and prepend the list node to it 
+  var $selectableDiv = $('<div>').addClass("selectable-journal-item").prepend($newItemFirstBton);        // Create <div> element and prepend the button node to it        
   $("ul").prepend($selectableDiv); //  $selectableDiv                                                    // Getting the <ul> element and adding element to the it
 };
 
 
 /*  ==== Selecting entry items when click it=========== */
-// Get <ul> element
-// var clickInList = false;                                                                
-$("#list-of-journals").on("click", function(e) {                                                       // Add click event listener and pass event object (event delegation) 
-  // clickInList = true;
-  $target = e.target;                                                                                  // Get event object target: where the click happened  
+$("#list-of-journals").on("click", function(e) {                                                          // Add click event listener and pass event object (event delegation) 
+  $target = e.target;                                                                                     // Get event object target: where the click happened  
   var $itemList = $("ul").children(); 
-  for (var items = 0; items < $itemList.length; items++ ) {                                            // Iterate over the list 
-    if ( $itemList[items] == $target ) {                                                               // If target == element in list
-      // console.log(alert("Item " + items + " is target"));
-      $itemList[items].className = "selected-item";                                                      // Set class to: 
+  for (var items = 0; items < $itemList.length; items++ ) {                                               // Iterate over the list 
+    if ( $itemList[items] == $target ) {                                                                  // If target == element in list
+      $itemList[items].className = "selected-item";                                                       // Set class to: 
       var elItemDB = document.getElementsByClassName("selected-item")[0].getAttributeNode('data-item-num').value;
       $(function() {
         $.getJSON('edit_entry', {elItemDB:elItemDB}, function(result) {
-          // console.log(alert(result.post.title));                                                        // Print an alert msg with the Title
-          // $(".selected-item").attr("data-item-num", result.post.id);                                    // Put id from db into the data-item from entry
-          $("#show-head").text(result.post.title);                                                        // Put the title into the entry
-          $("#show-body").text(result.post.body)
-          // $(".selectable-journal-item").css("display", "block");
+          $("#show-head").html(result.post.title);                                                         // Put the title into the entry
+          $("#show-body").html(result.post.body);
         });
       });
-    } else {                                                                                                 // Otherwise
+    } else {                                                                                                // Otherwise
       // console.log(alert(items))
-      $itemList[items].className = "selectable-journal-item";                                          // Set to:
+      $itemList[items].className = "selectable-journal-item";                                               // Set to:
     }
   }
 });
 
-/* === List is not empty and not click event was triggered === */
-if ( $("ul").children().length >= 1 ) {                                                                // && clickInList == false                                         
+// List is not empty and not click event was triggered 
+if ( $("ul").children().length >= 1 ) {                                                                                                         
   var $entryList =  $("ul").children();
   $entryList[0].className = 'selected-item';
   $("#save-button, #journal-list-logo-elements, #logo-holder").css("display", "none");
@@ -109,17 +90,12 @@ if ( $("ul").children().length >= 1 ) {                                         
   var elItemDB = document.getElementsByClassName("selected-item")[0].getAttributeNode('data-item-num').value;
   $(function() {
     $.getJSON('edit_entry', {elItemDB:elItemDB}, function(result) {
-      // console.log(alert(result.post.title));                                                        // Print an alert msg with the Title
-      // $(".selected-item").attr("data-item-num", result.post.id);                                    // Put id from db into the data-item from entry
-      $("#show-head").text(result.post.title);                                                        // Put the title into the entry
-      $("#show-body").text(result.post.body)
-      // $(".selectable-journal-item").css("display", "block");
+      $("#show-head").html(result.post.title);                                                        // Put the title into the entry
+      $("#show-body").html(result.post.body)
     });
   });
-  // $("#delete-button").css("display", "block");
 } else {
   $("#editor-toolbar-button").css("display", "none");
-  // $('.journal-list-theme').css("display", "block");
   $(".edit-button, .delete-button, .save-button").css("display", "none");
 }
  
@@ -153,32 +129,16 @@ const observer = new MutationObserver(callback);
 // Start observing the target node for configured mutations
 observer.observe(elList, config);
 
-/* ===========WRITING TITlE========================
-================================================= */
-
-// Getting entry in the editor header
-var elTitle = document.getElementById('journal-editor-header');
-// Adding Listener to the keyup
-/* elTitle.addEventListener('keyup', function(e) {
-  target = e.target;
-  textEntered = target.innerText;
-  // Getting text node of selected-item
-  var elSelectedEntry = document.getElementsByClassName('selected-item')[0];
-  elSelectedEntry.contentEditable = 'true';
-  var elFirst = elSelectedEntry.firstChild;
-  var elSecond = elFirst.firstChild;
-  elSecond.textContent = textEntered;
-}, false); */
-
 /* ===========SAVE FUNCTION================
 ============================================== */
 // Getting save-button 
  $('#save-button').on('click', function() {
    
   // Get content of the header (title) editor:
-  var elTitle = tinymce.get('journal-editor-header').getContent({format: 'text'});
+  var elTitle = tinymce.get('journal-editor-header').getContent(); // {format: 'text'}
+  var onlyText = tinymce.get('journal-editor-header').getContent({format: 'text'});
   // Get content of the body editor:
-  var elBody = tinymce.get('journal-editor-body').getContent({format: 'text'}); 
+  var elBody = tinymce.get('journal-editor-body').getContent(); // {format: 'text'} 
 
   // Save request to the server 
   $.ajax({
@@ -191,13 +151,15 @@ var elTitle = document.getElementById('journal-editor-header');
   });
   // Loading last entry from db into the list of entries
   $(function() {
-    $.getJSON("loading_entry", function(result) {                                          // Get last entry from database using $.getJSON() method
-      // console.log(alert(JSON.stringify(result)));
-      // console.log(alert(result.post[0]["id"])); 
-      $(".selected-item").attr("data-item-num", result.post[0]["id"]);                     // Put id from db into the data-item from entry
-      $(".selected-item").find("li").text(result.post[0]["title"]);                        // Put the title into the entry
-      $("#show-head").text(result.post[0]["title"]);                                       // Put the title into the entry-head-view
-      $("#show-body").text(result.post[0]["body"])
+    $.getJSON("loading_entry", function(result) {                                           // Get last entry from database using $.getJSON() method
+      $(".selected-item").attr("data-item-num", result.post[0]["id"]);                      // Put id from db into the data-item from entry
+      // Getting only text from title response
+      var tempEl = document.createElement("div");
+      tempEl.innerHTML = result.post[0]["title"];
+      tempEl = tempEl.textContent;
+      $(".selected-item").find("li").text(tempEl);                                          // Put the title into the entry
+      $("#show-head").html(result.post[0]["title"]);                                        // Put the title into the entry-head-view
+      $("#show-body").html(result.post[0]["body"]);      
     });
   });
   // Empty the editor
@@ -207,11 +169,6 @@ var elTitle = document.getElementById('journal-editor-header');
   // Activate view mode
   $('#journal-editor-area, #save-button').css("display", "none"); 
   $('#editor-toolbar-button, #view-mode, #edit-button, #delete-button, .selectable-journal-item').css("display", "block");  
-  // $("#save-button").css("display", "none");    // Hide save-button
-  // Show edit and delete-button
-  // $("#edit-button").css("display", "block");
-  // $("#delete-button").css("display", "block");
-  // $(".selectable-journal-item").css("display", "block");
 });
 
 /*============ EDIT FUNCTION =======================
@@ -219,14 +176,12 @@ var elTitle = document.getElementById('journal-editor-header');
 $("#edit-button").on("click", function() {
   // Getting the item num in db
   var elItemDB = document.getElementsByClassName("selected-item")[0].getAttributeNode('data-item-num').value;
-  // console.log(alert(elItemDB))
   $("#delete-button, #edit-button, .selectable-journal-item, #app-layout-board, #editor-toolbar-button, #view-mode").css("display", "none");
   $(".submit-button, #journal-toolbar-back").css("display", "block");
   $("#journal-editor-area").css("margin-left", "15%");
   // 
   $(function() {
     $.getJSON("edit_entry", {elItemDB:elItemDB}, function(result) {
-      // console.log(alert(result.post.title))
       $("#journal-editor-area").css("display", "block");
       tinymce.get('journal-editor-header').setContent(result.post.title);
       tinymce.get('journal-editor-body').setContent(result.post.body);
@@ -239,7 +194,7 @@ $("#edit-button").on("click", function() {
 $('.delete-button').on('click', function() {
     // Getting the item num in db
     var elItemDB = document.getElementsByClassName("selected-item")[0].getAttributeNode('data-item-num').value;
-    // clickInList = false    
+ 
     // Sending delete request to the server
     $.ajax({
       url:'delete_entry',
@@ -250,30 +205,27 @@ $('.delete-button').on('click', function() {
     });
     $('.selected-item').remove();
     var $itemList = $("ul").children();  
-    if ($itemList.length >= 1 ) {                                  // && clickInList == false
+    if ($itemList.length >= 1 ) {                                  
       $itemList[0].className = 'selected-item';
       $("#save-button").css("display", "none");
       $("#edit-button, .delete-button").css("display", "block");
       $(function() {
         var elItemDB = document.getElementsByClassName("selected-item")[0].getAttributeNode('data-item-num').value;
         $.getJSON('edit_entry', {elItemDB:elItemDB}, function(result) {
-          console.log(alert(elItemDB));
-          console.log(alert(result.post.title));                                                           // Print an alert msg with the Title
-          // $(".selected-item").attr("data-item-num", result.post.id);                                    // Put id from db into the data-item from entry
-          $("#show-head").text(result.post.title);                                                        // Put the title into the entry
-          $("#show-body").text(result.post.body)
-          // $(".selectable-journal-item").css("display", "block");
+          $("#show-head").html(result.post.title);                                                          
+          $("#show-body").html(result.post.body)
         });
       });
     } else {
       $("#editor-toolbar-button").css("display", "none");
       $("#journal-list-logo-elements").css("display", "block");
       $("#edit-button, #delete-button, #save-button, #view-mode").css("display", "none");
+      $("#logo-holder").css("display", "flex")
     } 
 }); 
 
-/* =============== Submit Function ==============
-  ===============================================  */
+/* ===== Submit Function ====
+  ===========================  */
 
   // Getting submit-button 
  $('#submit-button').on('click', function() {
@@ -281,12 +233,11 @@ $('.delete-button').on('click', function() {
    $("#submit-button, #journal-toolbar-back").css("display", "none");
    // Show edit and delete-button
    $("#edit-button, #app-layout-board, #delete-button, #view-mode").css("display", "block");
-   // $("#delete-button").css("display", "block");
 
    // Get content of the header (title) editor:
-   var elTitle = tinymce.get('journal-editor-header').getContent({format: 'text'});
+   var elTitle = tinymce.get('journal-editor-header').getContent();
    // Get content of the body editor:
-   var elBody = tinymce.get('journal-editor-body').getContent({format: 'text'});
+   var elBody = tinymce.get('journal-editor-body').getContent();
    // Get id number of the entry
    var elItemDB = document.getElementsByClassName("selected-item")[0].getAttributeNode('data-item-num').value;
    // Activate view mode
@@ -309,10 +260,15 @@ $('.delete-button').on('click', function() {
   // Update entry in the list-side-bar 
   $(function() {
     $.getJSON('loading_change', {elItemDB:elItemDB}, function(result) {
-      // console.log(alert(result.post.title));                                                    // Print an alert msg with the Title
-      $(".selected-item").attr("data-item-num", result.post.id);                                // Put id from db into the data-item from entry
-      $(".selected-item").find("li").text(result.post.title);                                   // Put the title into the entry
+      $(".selected-item").attr("data-item-num", result.post.id);                                      // Put id from db into the data-item from entry
+      // Getting only text from title response
+      var tempEl = document.createElement("div");
+      tempEl.innerHTML = result.post.title;
+      tempEl = tempEl.textContent;
+      $(".selected-item").find("li").text(tempEl);                                                    // Put the title into the entry
       $(".selectable-journal-item").css("display", "block");
+      $("#show-head").html(result.post.title);                                                        // Put the title into the entry-head-view
+      $("#show-body").html(result.post.body);
     });
   });
 });

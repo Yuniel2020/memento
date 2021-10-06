@@ -15,7 +15,7 @@ mail = Mail()
 db = SQLAlchemy()
 ma = Marshmallow()
 login_manager = LoginManager() # Initializing Flask-Login in the app factory
-login_manager.login_view = 'auth.login'
+login_manager.login_view = 'login' # auth.login
 # The login_view attribute of the LoginManager object sets the endpoint for the
 # login page. Flask-Login will redirect to the login page
 # when an anonymous user tries to access a protected page   
@@ -35,7 +35,6 @@ def create_app(config_name):
     """ Registering the blueprint inside the app factory """
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
-    from .auth import auth as auth_blueprint
-    app.register_blueprint(auth_blueprint, url_prefix='/auth')
-
+    #from .auth import auth as auth_blueprint
+    #app.register_blueprint(auth_blueprint, url_prefix='/auth')
     return app

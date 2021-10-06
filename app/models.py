@@ -9,15 +9,14 @@ from datetime import datetime
 class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, index=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(128))
-    posts = db.relationship('Post', back_populates='user', lazy='dynamic')
+    posts = db.relationship('Post', back_populates='user', cascade="all, delete, delete-orphan", lazy='dynamic')
 
     # This method give the table a readable string representation that
     #  can be use for debugging and testing purposes.
     def __repr__(self):
-        return "<id='%s',  username='%s', email='%s', password_hash='%s')>" % (self.id, self.username,
+        return "<id='%s',  email='%s', password_hash='%s')>" % (self.id,
                       self.email, self.password_hash)
     
 # Defining the models for Posts table
@@ -48,7 +47,6 @@ class UserSchema(ma.SQLAlchemySchema):
         model = User
 
     id = ma.auto_field()
-    username = ma.auto_field()
     email = ma.auto_field()
     password_hash = ma.auto_field()
     posts = ma.auto_field()

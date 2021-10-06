@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div id="sign-up-page">
+    <div class="logo-holder" id="logo-holder">
+        <img src="{{ url_for('static', filename='img/logo1.jpeg') }}" alt="Logo" class="logo">
+    </div>
+    <h2>Sign up</h2>
+    <form method="POST" action="{{ url_for('main.register') }}">
+        {{ form.csrf_token }}
+        {{form.email.label}} {{form.email( size=30, autocomplete="off", placeholder="Email", type="email", value="" ) }}      
+        {{form.password.label }} {{ form.password( placeholder="Password", autocomplete="off" ) }}</label>
+        <input id="sign-up" type="submit" value="Sign up">
+    </form>
+    <p id="already-account">Already have an account?<a href="{{ url_for('main.login') }}">Log in</a></p>
+</div>
+{% endblock %}

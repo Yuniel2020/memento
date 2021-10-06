@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div id="login-page">
+    <div class="logo-holder" id="logo-holder">
+        <img src="{{ url_for('static', filename='img/logo1.jpeg') }}" alt="Logo" class="logo">
+    </div>
+    <h2>Log in</h2>
+    <form method="post" action="login">
+        {{ form.csrf_token }}
+        {{form.email.label}} {{ form.email(size=30, autocomplete="off", placeholder="Email", type="email", value="") }}
+
+        {{form.password.label}} {{ form.password( placeholder="Password", autocomplete="off" ) }}
+        <input id="login" type="submit" value="Log in">
+        <div class="remember-me-wrapper">
+            {{ form.remember_me() }} {{form.remember_me.label (class="remember") }}  
+        </div>
+        <p class="sign-up">Don't have an account?  <a href="{{ url_for('main.register') }}"> Sign up</a></p>                                                  
+    </form>
+</div>
+{% endblock %}
