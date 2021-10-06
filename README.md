@@ -16,17 +16,14 @@ TODO
          A. Title
          B. Body
          I need to get both of the text and store them into the database.
-      
-      WHEN MEMENTO.APP IS OPENED:
-      If no element in DB: 
-
-   2.3. EDIT MODE
+   
+   2.2. EDIT MODE
       Edit-mode will be activated when user add a new entry or when user edit an old entry.
       If edit-mode is activated, in journal list (left-side-panel) will be shown only 
       the entry the user is working on.
    
-   3.4. VIEW MODE
-   3.3. If there is content in db, 'view mode' will be activated:
+   2.3. VIEW MODE
+      If there is content in db, 'view mode' will be activated:
       - Show list of styled entries:
          - In order to do that I have to:
             A. Create a JS function that request via AJAX the DB-entries
@@ -48,7 +45,7 @@ TODO
             - Delete 'Selected-item'
          - If 'add entry' is selected:
             - Add entry
-   3.4. If there isn't content in db
+   2.4. If there isn't content in db, add-entry mode will be activated
+   2.5. The log-out function will log out user and delete all activity (account and entries)
 
-   3. Test
-   4. Deploy
+3. Deploy
