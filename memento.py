@@ -10,7 +10,7 @@ migrate = Migrate(app, db)
 
 """ Adding the deploy command """
 @app.cli.command()
-def create_tables():
+def deploy():
     """ Run deployment tasks"""
     db.create_all()
 
