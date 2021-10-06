@@ -2,8 +2,15 @@
 import os
 from app import create_app, db 
 from app.models import User, Post
-from flask_migrate import Migrate, migrate
+from flask_migrate import Migrate, upgrade
+from app.models import User, Post
 
 """ Creating an appplication using the app constructor """
 app = create_app(os.getenv('MEMENTO_CONFIG') or 'default')
 migrate = Migrate(app, db)
+
+""" Adding the deploy command """
+@app.cli.command()
+def deploy():
+    """ Run deployment tasks"""
+    upgrade()
