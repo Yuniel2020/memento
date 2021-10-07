@@ -32,7 +32,8 @@ class TestingConfig(Config):
     values under each of the three configurations. This enables the app to use 
     a different database in each configuration  """
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
+        'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 
 
 """ The different configurations are then registered in a config dictionary. 
