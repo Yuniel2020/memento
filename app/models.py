@@ -27,7 +27,6 @@ class Post(db.Model):
     body = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-
     user = relationship('User', back_populates='posts', lazy=True)
 
     def __repr__(self):
