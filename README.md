@@ -18,7 +18,7 @@ https://ilmemento.herokuapp.com
 
 2. Frontend
   - HTML
-  - CSS344113
+  - CSS
   - JavaScript
 
 3. Database
