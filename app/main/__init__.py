@@ -2,7 +2,7 @@
 
 from flask import Blueprint
 
-""" Here is been instantiating an object of a Blueprint class """
+""" Instantiate an object of a Blueprint class """
 """ Arguments for the constructor: blueprint name and module or
      package where the blueprint is located  """
 main = Blueprint('main', __name__)
